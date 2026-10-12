@@ -14,9 +14,16 @@ public class FeeCalculatorTests {
     }
 
     @Test
-    void testCalculateFeeForCar() {
+    void chargeFeeUnderFiveMinutes() {
         OffsetDateTime timeOut = time().plusSeconds(245);
         BigDecimal charge = feeCalculator.calculate(VehicleType.MEDIUM, time(), timeOut);
         assertThat(charge).isEqualByComparingTo("0.82");
+    }
+
+    @Test
+    void chargeFeeOverFiveMinutes() {
+        OffsetDateTime timeOut = time().plusSeconds(305);
+        BigDecimal charge = feeCalculator.calculate(VehicleType.MEDIUM, time(), timeOut);
+        assertThat(charge).isEqualByComparingTo("2.02");
     }
 }
